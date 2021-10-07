@@ -1,5 +1,5 @@
 function [ sif, lambda, AllSpectra, BoundFig ] = CDgetSifSpectra( path )
-
+% Function to extract all frames, i.e. spectra from a .sif file.
 
 %% ----- LOAD SIF -----
 %  --------------------
