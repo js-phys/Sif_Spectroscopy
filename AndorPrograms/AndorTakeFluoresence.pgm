@@ -1,0 +1,88 @@
+wavel = 700 //specify center wavelength
+noframes = 100 // specifiy number of frames
+exptime =0.35// specify exposure time
+saveit =0//save acquisition (1) or just do test (0)
+filename$ = "Fluoro_Sample_B"
+filepath$ = "C:\Users\js-phys\Desktop\AndorSpool"
+
+
+
+
+// -------------------------------------------------------
+// ------------- NOTHING TO CHANGE FORM HERE ---------
+// -------------------------------------------------------
+
+SetReadoutMode(4) // Set readout mode to Image
+SetAcquisitionMode(3) // Set acquisition mode to Kinetics
+SetTriggerMode(0) // 0 = Internal; 1 = External; 6 = External Start; 7 = External Exposure; 9 = External FVB EM
+// 6 is for the random motion script
+SetAcquisitionType(0) // Take Signal not background etc.
+
+SetPreAmp(2)//Set PreAmpGain
+SetBaselineClamp(1) // Baseline Clamp ON
+
+HStart=1
+HEnd=1024
+VStart=1
+VEnd=255
+
+HBin=1
+Vbin=1
+SetImage(HStart, HEnd, HBin, VStart, VEnd, Vbin)
+//SetImage()// Set Binning to 1x1 and Sensor readout to full Widht, full height
+
+
+SetWavelength(wavel) // Set center wavelength
+SetKineticNumber(noframes)
+
+
+SetExposureTime(exptime)
+SetKineticCycleTime(0.1)
+
+
+//setframetransfer(0, 0, 1000) maybe useful???
+setspool(saveit) // Turn spooling on
+setspoolfiletype(6) // 1-sifx, 6-Sif
+setspoolstorage(0) // Spool to disk
+setspoolcompression(0) // no compression
+setspoolstem(filename$)
+setspoollocation(filepath$)
+//setspoolformat(0) unnecessary if not spooling to fits
+
+//SetAccumulate(0.01, 10, 0.1) //for doing a measurement in acucmulation mode; makes the other parameters obsolete
+//timest$=TimeStamp(#0{1},1)
+timest$=time$()
+Run() //Take acquisition.
+//ShowTimings() //uncomment if Timings should be shown in console
+
+// -------------------------------------------------------
+// ------------- APPEND DATA TO REPORT FILE ---------
+// -------------------------------------------------------
+compval=1
+
+if (saveit==compval) then
+	//get additional data (slit, wavelength, ...) and append to file
+	cal$=coefficient$(#0):rem Gets the calibration
+	wave = GetWavelength()
+	width = GetAutoSlit(0)
+	//timest$=TimeStamp(#0{1},1)
+	
+	repname$=(filepath$;"\";filename$)
+	rrn$=(repname$;".report")
+	
+	//append number to file stem
+	cnt=1
+	while (exist(rrn$)==1) 
+	newname$=(filename$;"_";str$(cnt);".report")
+	rrn$=(filepath$;"\";newname$)
+	cnt=cnt+1
+	wend
+	
+	idx = instr(rrn$, ".")
+	write(rrn$, (left$(rrn$, idx-1);".sif"),timest$,"CalibrationCoeff:"; cal$, "CenterWavelength:"; wave,"SlitWidth:";width,)
+	write(rrn$, (ShowTimings()))	
+	write(rrn$, "Number frames: ",str$(noframes))	
+else
+	print("Data not saved!")
+endif
+
