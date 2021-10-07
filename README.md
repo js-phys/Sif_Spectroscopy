@@ -1,12 +1,16 @@
 # Sifx_Evaluation
 #### Language: Matlab (and Andor Basic)
-Acquisition &amp; Evaluation of spectroscopic data acquired with an Andor CCD camera (Newton)
+Acquisition &amp; Evaluation of (time-dependent) spectroscopic data acquired with an Andor CCD camera (Newton)
 
 ---
 
-This is a loose collection of software that was used to a) acquire spectroscopic data with an Andor detector and b) evaluate the spectra automatically with Matlab. The acquisition program (a) was written in Andor Basic and can be executed directly in the Andor SOLIS software. It spools spectra fils (.sif) to disc and creates a report file with some metadata. 
+This is a loose collection of software that was used to 
+  - Acquire spectroscopic data with an Andor detector 
+  - Evaluate the spectra with Matlab. 
 
-This data can be loaded into Matlab for further evaluation (b). 
+The acquisition program was written in Andor Basic and can be executed directly in the Andor SOLIS software. It spools several spectra to disc and saves it in one file (.sif). It'll also create a .report file with some metadata. 
+
+The .sif file can later be loaded into Matlab (if the .report file is misisng, standard parameters are used). After loading the .sif, individual spectra can be access and extracted  for further evaluation.
 
 ---
 
