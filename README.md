@@ -10,6 +10,6 @@ This data can be loaded into Matlab for further evaluation (b).
 
 ---
 
-**Note: For proper function the Andor Software Development Kit (SDK) has to be installed first.
+**Note:** For proper function the Andor Software Development Kit (SDK) has to be installed first.
 
 ---
