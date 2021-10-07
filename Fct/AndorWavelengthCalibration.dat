@@ -1,0 +1,2 @@
+Wavelength calibration constants "C1, C2, C3, C4", where the x-axis is a third order polynomial: Cal = C1 + C2*P + C3*P*P + C4*P*P*P, set to 750nm centerwavelength
+536.463,0.417102,1.92524e-06,-3.90165e-09
