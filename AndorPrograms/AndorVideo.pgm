@@ -1,0 +1,21 @@
+SetReadoutMode(4) :rem Set readout mode to Image
+SetAcquisitionMode(3) :rem Set acquisition mode to Accumulate
+SetAcquisitionType(0) :rem Take Signal not background etc.
+
+HStart=1
+HEnd=1024
+VStart=1
+VEnd=255
+
+HBin=1
+Vbin=1
+//SetImage(HStart, HEnd, HBin, VStart, VEnd, Vbin)
+SetImage()// Set Binning to 1x1 and Sensor readout to full Widht, full heightSetBaselineClamp(1) // Baseline Clamp ON
+
+SetWavelength(0) :rem Set center wavelength
+SetKineticNumber(1000)
+SetPreAmp(2)//Set PreAmpGain
+
+SetExposureTime(0.35) :rem Set the exposure
+SetKineticCycleTime(0.1)
+Run() :rem Take acquisition.
