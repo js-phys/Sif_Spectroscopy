@@ -1,4 +1,4 @@
-# Sif_Evaluation
+# Sif_Spectroscopy
 #### Language: Matlab (and Andor Basic)
 Acquisition & Evaluation (Matlab) of time-dependent spectroscopic data acquired with an Andor CCD camera (Newton).
 
